@@ -1,4 +1,4 @@
-package com.back.request;
+package com.back.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class StartRideRequest {
+public class UserDTO {
 
-    private Integer opt;
+    private Integer id;
 
+    private String email;
+
+    private String name;
+
+    private String mobile;
 }

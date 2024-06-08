@@ -1,7 +1,6 @@
 package com.back.model;
 
 import com.back.domain.RideStatus;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,9 +33,9 @@ public class Ride {
     @Column(name = "driver_id")
     private List<Integer> declinedDrivers = new ArrayList<>();
 
-    private double pickulLatitude;
+    private double pickupLatitude;
 
-    private double pickulLongitude;
+    private double pickupLongitude;
 
     private double destinationLatitude;
 
@@ -56,6 +55,10 @@ public class Ride {
     private double fare;
 
     private int otp;
+
+    private double distance;
+
+    private long duration;
 
     @Embedded
     private PaymentDetails paymentDetails = new PaymentDetails();

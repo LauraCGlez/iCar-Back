@@ -1,5 +1,6 @@
 package com.back.service;
 
+import com.back.exception.DriverException;
 import com.back.exception.RideException;
 import com.back.model.Driver;
 import com.back.model.Ride;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface RideService {
 
-    Ride requestRide(RideRequest rideRequest, User user) throws RideException;
+    Ride requestRide(RideRequest rideRequest, User user) throws RideException, DriverException;
 
     Ride createRideRequest(User user, Driver nearestDriver, double pickupLatitude,
                                   double pickupLongitude, double destinationLatitude,

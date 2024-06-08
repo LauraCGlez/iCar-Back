@@ -15,7 +15,6 @@ import com.back.repository.VehicleRepository;
 import com.back.request.DriverSignupRequest;
 import com.back.service.DriverService;
 import com.back.service.Calculaters;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,26 +25,26 @@ import java.util.Optional;
 @Service
 public class DriverServiceImpl implements DriverService {
 
-    @Autowired
-    private DriverRepository driverRepository;
+    private final DriverRepository driverRepository;
 
-    @Autowired
-    private Calculaters calculaters;
+    private final Calculaters calculaters;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private JwtUtil jwtUtil;
+    private final JwtUtil jwtUtil;
 
-    @Autowired
-    private VehicleRepository vehicleRepository;
+    private final VehicleRepository vehicleRepository;
 
-    @Autowired
-    private LicenseRepository licenseRepository;
+    private final LicenseRepository licenseRepository;
 
-    @Autowired
-    private RideRepository rideRepository;
+    public DriverServiceImpl(DriverRepository driverRepository, Calculaters calculaters, PasswordEncoder passwordEncoder, JwtUtil jwtUtil, VehicleRepository vehicleRepository, LicenseRepository licenseRepository) {
+        this.driverRepository = driverRepository;
+        this.calculaters = calculaters;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
+        this.vehicleRepository = vehicleRepository;
+        this.licenseRepository = licenseRepository;
+    }
 
     @Override
     public List<Driver> getAvailableDrivers(double pickupLatitude, double pickupLongitude, double radius, Ride ride) {

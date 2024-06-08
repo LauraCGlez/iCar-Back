@@ -73,9 +73,9 @@ public class RideServiceImpl implements RideService{
 
         notification.setDriver(nearestDriver);
         notification.setMesssage("New ride request");
-        notifiaction.setRide(ride);
+        //notifiaction.setRide(ride);
         notification.setTimestamp(LocalDateTime.now());
-        notification.setType(NotificationType.RIDE_REQUEST);
+        //notification.setType(NotificationType.RIDE_REQUEST);
 
         Notification savedNotification = notificationRepository.save(notification);
 
@@ -133,7 +133,7 @@ public class RideServiceImpl implements RideService{
 
         notification.setTimestamp(LocalDateTime.now());
 
-        notification.setType(NotificationType.RIDE_CONFIRMATION);
+        //notification.setType(NotificationType.RIDE_CONFIRMATION);
 
         Notification savedNotification = notificationRepository.save(notification);
     }
@@ -157,7 +157,7 @@ public class RideServiceImpl implements RideService{
         notification.setMesssage("Drive reached at your location");
         notification.setRide(ride);
         notification.setTimestamp(LocalDateTime.now());
-        notification.setType(NotificationType.RIDE_CONFIRMATION);
+        //notification.setType(NotificationType.RIDE_CONFIRMATION);
 
         Notification savedNotification = notificationRepository.save(notification);
     }
@@ -221,7 +221,7 @@ public class RideServiceImpl implements RideService{
         notification.setMesssage("Driver reached at your location");
         notification.setRide(ride);
         notification.setTimestamp(LocalDateTime.now());
-        notification.setType(NotificationType.RIDE_CONFIRMATION);
+        //notification.setType(NotificationType.RIDE_CONFIRMATION);
 
         Notification savedNotification = notificationRepository.save(notification);
     }

@@ -1,41 +1,56 @@
 package com.back.controller;
 
-import com.back.config.JwtUtil;
 import com.back.exception.UserException;
-import com.back.model.Driver;
-import com.back.repository.DriverRepository;
+import com.back.model.Ride;
+import com.back.model.User;
+import com.back.response.MessageResponse;
+import com.back.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/api/users")
 public class HomeController {
 
-    private final DriverRepository driverRepository;
+    private final UserService userService;
 
-    private final JwtUtil jwtUtil;
-
-    public HomeController(DriverRepository driverRepository, JwtUtil jwtUtil) {
-        this.driverRepository = driverRepository;
-        this.jwtUtil = jwtUtil;
+    public HomeController(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping("/api/profile")
-    public ResponseEntity<?> userProfilerHandler(@RequestHeader("Authorization") String jwt) throws UserException {
+    public ResponseEntity<MessageResponse> homeController(){
+        MessageResponse messageResponse = new MessageResponse("Welcome to the ICar API");
+        return new ResponseEntity<MessageResponse>(messageResponse, HttpStatus.OK);
+    }
 
-        String email = jwtUtil.getEmailFromJwtToken(jwt);
+    @GetMapping("{userId}")
+    public ResponseEntity<User> userHandler(@PathVariable Integer userId) throws UserException {
 
-        if (email == null) {
-            throw new UserException("Invalid Token");
-        }
+        User createdUser = userService.findUserById(userId);
 
-        Driver driver = driverRepository.findByEmail(email);
+        return new ResponseEntity<User>(createdUser, HttpStatus.ACCEPTED);
 
+    }
 
-        return ResponseEntity.ok("User Profile");
+    @GetMapping("/profile")
+    public ResponseEntity<User> userProfileHandler(@RequestHeader("Authorization") String jwt) throws UserException {
+
+        User user = userService.findUserByToken(jwt);
+
+        return new ResponseEntity<>(user, HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/rides/completed")
+    public ResponseEntity<?> completedRidesHandler(@RequestHeader("Authorization") String jwt) throws UserException {
+
+        User user = userService.findUserByToken(jwt);
+
+        List<Ride> rides = userService.completedRides(user.getId());
+
+        return new ResponseEntity<>(rides, HttpStatus.ACCEPTED);
     }
 
 }

@@ -22,12 +22,19 @@ public class Driver {
     private Integer id;
 
     private String email;
+
     private String name;
+
     private String mobile;
+
     private double rating;
+
     private double latitude;
+
     private double longitude;
+
     private UserRole role;
+
     private String password;
 
     @OneToOne(mappedBy = "driver", cascade = CascadeType.ALL)

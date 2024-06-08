@@ -16,7 +16,7 @@ public class JwtResponse {
 
     private String message;
 
-    private boolean isAuthorized;
+    private boolean isAuthenticated;
 
     private boolean isError;
 

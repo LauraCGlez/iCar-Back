@@ -26,7 +26,12 @@ public class Ride {
     @ManyToOne
     private User user;
 
-    @JsonIgnore
+    @ManyToOne
+    private Driver driver;
+
+    @ElementCollection
+    @CollectionTable(name = "declined_drivers", joinColumns = @JoinColumn(name = "ride_id"))
+    @Column(name = "driver_id")
     private List<Integer> declinedDrivers = new ArrayList<>();
 
     private double pickulLatitude;
@@ -41,6 +46,7 @@ public class Ride {
 
     private String destinationArea;
 
+    @Enumerated(EnumType.STRING)
     private RideStatus status;
 
     private LocalDateTime startTime;

@@ -35,20 +35,21 @@ public class AuthController {
 
     private final DriverRepository driverRepository;
 
-    private final DriverService driverService;
+    @Autowired
+    private DriverService driverService;
 
     private final PasswordEncoder passwordEncoder;
 
     private final CustomeUserDetailsService customeUserDetailsService;
 
-    private final JwtUtil jwtUtil;
+    @Autowired
+    private JwtUtil jwtUtil;
 
-    public AuthController(UserRepository userRepository, DriverRepository driverRepository, CustomeUserDetailsService customeUserDetailsService) {
+    public AuthController(UserRepository userRepository, DriverRepository driverRepository, PasswordEncoder passwordEncoder, CustomeUserDetailsService customeUserDetailsService) {
         this.userRepository = userRepository;
         this.driverRepository = driverRepository;
+        this.passwordEncoder = passwordEncoder;
         this.customeUserDetailsService = customeUserDetailsService;
-        this.jwtUtil = jwtUtil;
-        this.driverService = driverService;
     }
 
     //api/auth/user/signup

@@ -1,3 +1,29 @@
+Aplicación de reserva de taxis iCar:
+
+-buscar taxis disponibles y realizar reservas: función de búsqueda que permita a los usuarios encontrar viajes. El proceso de reserva implicará la integración de la pasarela de pago Razorpay.
+
+-panel completo donde los usuarios podrán ver su historial de viajes, verificar los detalles del viaje y monitorear el progreso de sus viajes en curso. Actualizaciones en tiempo real de las reservas.
+
+-registro de conductores
+
+-panel del conductor proporcionará una descripción de los viajes asignados, lo que permitirá a los conductores aceptar, rechazar e iniciar viajes según su disponibilidad.
+
+-verificación basada en OTP cuando los conductores inician un viaje.
+
+-cálculo los ingresos del conductor en función de los viajes completados.
+
+-los conductores tendrán acceso a su historial de viajes, lo que les permitirá realizar un seguimiento de sus ganancias y obtener información sobre los viajes realizados.
+
+Tecnologías utilizadas:
+-Vite.js
+-Spring Boot
+-Razorpay
+-Tailwind CSS
+-Material-UI
+-Formik (creación de formularios)
+-MySQL
+
+
 ##Endpoints de la aplicación iCar
 
 DriverController:

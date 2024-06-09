@@ -2,16 +2,14 @@ package com.back.model;
 
 import com.back.domain.RideStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -31,7 +29,7 @@ public class Ride {
     private Driver driver;
 
     @ElementCollection
-    @Column(name = "driver_id")
+    @Column(name = "declined_driver_id") // Changed column name to avoid conflict
     private List<Integer> declinedDrivers = new ArrayList<>();
 
     private double pickupLatitude;

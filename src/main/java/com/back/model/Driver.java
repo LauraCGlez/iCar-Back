@@ -3,14 +3,12 @@ package com.back.model;
 import com.back.domain.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -33,6 +31,7 @@ public class Driver {
 
     private double longitude;
 
+    @Enumerated(EnumType.STRING)
     private UserRole role;
 
     private String password;
@@ -41,10 +40,10 @@ public class Driver {
     private License license;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
     private List<Ride> rides;
 
-    @OneToOne(mappedBy = "driver", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "driver", cascade = CascadeType.ALL)
     private Vehicle vehicle;
 
     @JsonIgnore

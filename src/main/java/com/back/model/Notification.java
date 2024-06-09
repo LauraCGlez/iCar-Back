@@ -1,10 +1,7 @@
 package com.back.model;
 
 import com.back.domain.NotificationType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,10 +24,16 @@ public class Notification {
 
     private LocalDateTime timestamp;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "ride_id")
     private Ride ride;
 
+    @ManyToOne
+    @JoinColumn(name = "driver_id")
     private Driver driver;
 
     private NotificationType notificationType;

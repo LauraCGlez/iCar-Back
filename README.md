@@ -68,16 +68,16 @@ HomeController:
 
 RideController
 
-1. Solicitar un viaje
+   1. Solicitar un viaje
    Método HTTP: POST
    Ruta: /api/rides/request
    Descripción: Permite a un usuario solicitar un viaje.
    Parámetros: RideRequest rideRequest en el cuerpo de la solicitud.
-   Authorization en el encabezado de la solicitud.
+  Authorization en el encabezado de la solicitud.
    Respuesta: RideDTO con los detalles del viaje solicitado.
    Código de Estado HTTP: 202 Accepted
 
-2. Aceptar un viaje
+   2. Aceptar un viaje
    Método HTTP: PUT
    Ruta: /api/rides/{rideId}/accept
    Descripción: Permite aceptar un viaje pendiente.
@@ -146,3 +146,89 @@ UserController:
    Parámetros: Authorization en el encabezado de la solicitud.
    Respuesta: List<Ride> con la lista de viajes completados por el usuario.
    Código de Estado HTTP: 202 Accepted
+
+interface User {
+fullName: string;
+email: string
+password: string
+role: UserRole
+mobile: string;
+id: Integer
+profilePicture: string
+}
+
+interface Driver {
+id: Integer
+email: string
+name: string
+mobile: string
+rating: double
+latitude: double
+longitude: double
+role: UserRole
+password: string
+license: License
+rides: List<Ride>
+vehicle: Vehicle
+currentRide: Ride
+totalRevenue: Integer
+}
+
+Interface License {
+id: Integer
+licenseNumbre: String
+licenseState: string
+licenseExpirationDate: String
+driver: Driver
+}
+
+interface Notification{
+id: Integer
+message: string
+timestamp: LocalDateTime
+user: User
+driver: Driver
+ride: Ride
+notificationType: NotificationType
+}
+
+interface PaymentDetails {
+paymentStatus: PaymentStatus
+paymentId: string
+razorpayPaymentLinkId: string
+razorpayPaymentLinkReferenceId: string
+razorpayPaymentLinkStatus: string
+razorpayPaymentId: string
+}
+
+interface Ride {
+id: Integer
+user: User
+driver: Driver
+declinedDrivers: List<Integer>
+pickupLatitude: double
+pickupLongitude: double
+destinationLatitude: double
+destinationLongitude: double
+pickUpArea: string
+destinationArea: string
+status: RideStatus
+startTime: LocalDateTime
+endTime: LocalDateTime
+fare: double
+otp: int
+distance: double
+duration: long
+paymentDetails: paymentDetails
+}
+
+interface Vehicle {
+id: Integer
+make: string
+model: string
+year: int
+color: string
+licensePlate: string
+capacity: int
+driver: Driver
+}

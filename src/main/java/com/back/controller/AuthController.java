@@ -95,7 +95,7 @@ public class AuthController {
         jwtResponse.setErrorDetails(null);
         jwtResponse.setMessage("User registered successfully");
 
-        return new ResponseEntity<JwtResponse>(jwtResponse, HttpStatus.OK);
+        return new ResponseEntity<>(jwtResponse, HttpStatus.OK);
     }
 
     //api/auth/driver/signup

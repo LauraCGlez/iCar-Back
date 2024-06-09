@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class LicenseDTO {
 
-    private String numbre;
+    private String number;
 
     private String expiryDate;
 }

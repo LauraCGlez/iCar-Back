@@ -19,7 +19,7 @@ public interface DriverService {
 
     Driver getReqDriverProfile(String jwt) throws DriverException;
 
-    Ride getDriversCurrentRide(Integer driverId) throws DriverException;
+    //Ride getDriversCurrentRide(Integer driverId) throws DriverException;
 
     List<Ride> getAllocatedRides(Integer dreiverId) throws DriverException;
 

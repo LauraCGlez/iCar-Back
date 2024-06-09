@@ -26,14 +26,6 @@ public class DriverController {
         return new ResponseEntity<>(driver, HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/{driverId}/current_ride")
-    public ResponseEntity<Ride> getDriversCurrentRide(@PathVariable Integer driverId) throws DriverException {
-
-        Ride ride = driverService.getDriversCurrentRide(driverId);
-
-        return new ResponseEntity<Ride>(ride, HttpStatus.ACCEPTED);
-    }
-
     @GetMapping("/{driverId}/allocated")
     public ResponseEntity<List<Ride>> getAllocatedRides(@PathVariable Integer driverId) throws DriverException {
 

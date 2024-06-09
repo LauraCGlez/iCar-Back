@@ -36,19 +36,17 @@ public class Driver {
 
     private String password;
 
-    @OneToOne(mappedBy = "driver", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "license", referencedColumnName = "license_number")
     private License license;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "rides")
     private List<Ride> rides;
 
-    @OneToOne(mappedBy = "driver", cascade = CascadeType.ALL)
-    private Vehicle vehicle;
-
-    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
-    private Ride currentRide;
+    @JoinColumn(name = "vehicle_id", referencedColumnName = "id")
+    private Vehicle vehicle;
 
     private Integer totalRevenue=0;
 

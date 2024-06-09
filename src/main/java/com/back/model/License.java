@@ -13,16 +13,14 @@ import lombok.*;
 public class License {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-
+    @Column(name = "license_number", unique = true, nullable = false)
     private String licenseNumber;
 
     private String licenseState;
 
     private String licenseExpirationDate;
 
-    @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "license")
     private Driver driver;
+
 }

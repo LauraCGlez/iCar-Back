@@ -55,10 +55,6 @@ public class DriverServiceImpl implements DriverService {
 
         for (Driver driver : allDrivers) {
 
-            if(driver.getCurrentRide() != null && driver.getCurrentRide().getStatus() != RideStatus.COMPLETED) {
-                continue;
-            }
-
             if (ride.getDeclinedDrivers().contains(driver.getId())) {
                 continue;
             }
@@ -108,7 +104,7 @@ public class DriverServiceImpl implements DriverService {
         createdLicense.setLicenseState(license.getLicenseState());
         createdLicense.setLicenseNumber(license.getLicenseNumber());
         createdLicense.setLicenseExpirationDate(license.getLicenseExpirationDate());
-        createdLicense.setId(license.getId());
+
 
         License savedLicense = licenseRepository.save(createdLicense);
 
@@ -139,8 +135,6 @@ public class DriverServiceImpl implements DriverService {
         driver.setRole(UserRole.DRIVER);
 
         Driver createdDriver = driverRepository.save(driver);
-
-        createdLicense.setDriver(createdDriver);
         createdVehicle.setDriver(createdDriver);
 
         licenseRepository.save(createdLicense);
@@ -161,14 +155,6 @@ public class DriverServiceImpl implements DriverService {
             throw new DriverException("Driver not found");
         }
         return driver;
-    }
-
-    @Override
-    public Ride getDriversCurrentRide(Integer driverId) throws DriverException {
-
-        Driver driver = findDriverById(driverId);
-
-        return driver.getCurrentRide();
     }
 
     @Override

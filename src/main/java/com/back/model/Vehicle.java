@@ -34,8 +34,7 @@ public class Vehicle {
     @Column(name = "capacity")
     private int capacity;
 
-    @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "vehicle")
     private Driver driver;
 
 }

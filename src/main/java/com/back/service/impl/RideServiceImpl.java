@@ -112,8 +112,6 @@ public class RideServiceImpl implements RideService{
 
         Driver driver = ride.getDriver();
 
-        driver.setCurrentRide(ride);
-
         Random random = new Random();
 
         int otp = random.nextInt(9000) + 1000;
@@ -209,7 +207,6 @@ public class RideServiceImpl implements RideService{
         Driver driver = ride.getDriver();
 
         driver.getRides().add(ride);
-        driver.setCurrentRide(null);
 
         Integer driversRenue = (int) (driver.getTotalRevenue() + Math.round(fare * 0.8));
 

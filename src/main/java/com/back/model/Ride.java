@@ -23,13 +23,14 @@ public class Ride {
     private Integer id;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
+    @JoinColumn(name = "driver_id")
     private Driver driver;
 
     @ElementCollection
-    @CollectionTable(name = "declined_drivers", joinColumns = @JoinColumn(name = "ride_id"))
     @Column(name = "driver_id")
     private List<Integer> declinedDrivers = new ArrayList<>();
 

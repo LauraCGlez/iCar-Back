@@ -2,7 +2,6 @@ package com.back.controller;
 
 import com.back.config.JwtUtil;
 import com.back.domain.UserRole;
-import com.back.exception.DriverException;
 import com.back.exception.UserException;
 import com.back.model.Driver;
 import com.back.model.User;
@@ -32,28 +31,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private DriverRepository driverRepository;
+    private final DriverRepository driverRepository;
 
-    @Autowired
-    private DriverService driverService;
+    private final DriverService driverService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private CustomeUserDetailsService customeUserDetailsService;
+    private final CustomeUserDetailsService customeUserDetailsService;
 
-    @Autowired
-    private JwtUtil jwtUtil;
+    private final JwtUtil jwtUtil;
 
-    public AuthController(UserRepository userRepository, DriverRepository driverRepository) {
+    public AuthController(UserRepository userRepository, DriverRepository driverRepository, CustomeUserDetailsService customeUserDetailsService) {
         this.userRepository = userRepository;
         this.driverRepository = driverRepository;
-        this.passwordEncoder = passwordEncoder;
+        this.customeUserDetailsService = customeUserDetailsService;
         this.jwtUtil = jwtUtil;
         this.driverService = driverService;
     }

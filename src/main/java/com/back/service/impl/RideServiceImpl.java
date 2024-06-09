@@ -1,5 +1,6 @@
 package com.back.service.impl;
 
+import com.back.domain.NotificationType;
 import com.back.domain.RideStatus;
 import com.back.exception.DriverException;
 import com.back.exception.RideException;
@@ -72,10 +73,10 @@ public class RideServiceImpl implements RideService{
         Notification notification = new Notification();
 
         notification.setDriver(nearestDriver);
-        notification.setMesssage("New ride request");
-        //notifiaction.setRide(ride);
+        notification.setMessage("New ride request");
+        notification.setRide(ride);
         notification.setTimestamp(LocalDateTime.now());
-        //notification.setType(NotificationType.RIDE_REQUEST);
+        notification.setNotificationType(NotificationType.RIDE_REQUEST);
 
         Notification savedNotification = notificationRepository.save(notification);
 
@@ -127,7 +128,7 @@ public class RideServiceImpl implements RideService{
 
         notification.setUser(ride.getUser());
 
-        notification.setMesssage("Your ride has been accepted");
+        notification.setMessage("Ride accepted");
 
         notification.setRide(ride);
 
@@ -154,7 +155,7 @@ public class RideServiceImpl implements RideService{
         Notification notification = new Notification();
 
         notification.setUser(ride.getUser());
-        notification.setMesssage("Drive reached at your location");
+        notification.setMessage("Ride started");
         notification.setRide(ride);
         notification.setTimestamp(LocalDateTime.now());
         //notification.setType(NotificationType.RIDE_CONFIRMATION);
@@ -218,10 +219,10 @@ public class RideServiceImpl implements RideService{
         Notification notification = new Notification();
 
         notification.setUser(ride.getUser());
-        notification.setMesssage("Driver reached at your location");
+        notification.setMessage("Ride completed");
         notification.setRide(ride);
         notification.setTimestamp(LocalDateTime.now());
-        //notification.setType(NotificationType.RIDE_CONFIRMATION);
+        notification.setNotificationType(NotificationType.RIDE_COMPLETED);
 
         Notification savedNotification = notificationRepository.save(notification);
     }

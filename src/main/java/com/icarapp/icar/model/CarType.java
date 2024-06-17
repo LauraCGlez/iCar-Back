@@ -3,9 +3,16 @@ package com.icarapp.icar.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 public enum CarType {
-    SUV,
-    SEDAN,
-    HATCHBACK;
+    ECONOMY,
+    COMPACT,
+    INTERMEDIATE,
+    STANDARD,
+    FULL_SIZE,
+    PREMIUM,
+    LUXURY,
+    CONVERTIBLE,
+    MINIVAN,
+    SUV;
 
     @JsonCreator
     public static CarType fromString(String value) {

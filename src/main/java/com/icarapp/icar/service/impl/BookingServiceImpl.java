@@ -8,6 +8,7 @@ import com.icarapp.icar.exception.InvalidBookingRequestException;
 import com.icarapp.icar.exception.ResourceNotFoundException;
 import com.icarapp.icar.model.BookedCar;
 import com.icarapp.icar.repository.BookingRepository;
+import com.icarapp.icar.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,14 +20,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {
     private final BookingRepository bookingRepository;
-    private final CarService roomService;
+    private final CarService carService;
+    private final EmailService emailService;
 
 
     @Override
     public List<BookedCar> getAllBookings() {
         return bookingRepository.findAll();
     }
-
 
     @Override
     public List<BookedCar> getBookingsByUserEmail(String email) {
@@ -44,16 +45,24 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public String saveBooking(Long roomId, BookedCar bookingRequest) {
+    public String saveBooking(Long carId, BookedCar bookingRequest) {
         if (bookingRequest.getCheckOutDate().isBefore(bookingRequest.getCheckInDate())){
             throw new InvalidBookingRequestException("Check-in date must come before check-out date");
         }
-        Car car = roomService.getCarById(roomId).get();
+        Car car = carService.getCarById(carId).get();
         List<BookedCar> existingBookings = car.getBookings();
-        boolean roomIsAvailable = roomIsAvailable(bookingRequest,existingBookings);
-        if (roomIsAvailable){
+        boolean carIsAvailable = carIsAvailable(bookingRequest,existingBookings);
+        if (carIsAvailable){
             car.addBooking(bookingRequest);
             bookingRepository.save(bookingRequest);
+
+            String subject = "Car Booking Confirmation";
+            String messageContent = "Dear " + bookingRequest.getGuestFullName() + ",\n\n" +
+                    "Your booking for a car type " + bookingRequest.getCar().getCarType() + " has been confirmed.\n\n" +
+                    "Your confirmation code is: " + bookingRequest.getBookingConfirmationCode() + "\n\n" +
+                    "Thank you for choosing our service!";
+            emailService.sendConfirmationEmail(bookingRequest.getGuestEmail(), subject, messageContent);
+
         }else{
             throw  new InvalidBookingRequestException("Sorry, This car is not available for the selected dates;");
         }
@@ -68,7 +77,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
 
-    private boolean roomIsAvailable(BookedCar bookingRequest, List<BookedCar> existingBookings) {
+    private boolean carIsAvailable(BookedCar bookingRequest, List<BookedCar> existingBookings) {
         return existingBookings.stream()
                 .noneMatch(existingBooking ->
                         bookingRequest.getCheckInDate().equals(existingBooking.getCheckInDate())
@@ -89,8 +98,5 @@ public class BookingServiceImpl implements BookingService {
                                 && bookingRequest.getCheckOutDate().equals(bookingRequest.getCheckInDate()))
                 );
     }
-
-
-
 
 }

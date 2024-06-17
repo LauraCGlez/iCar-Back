@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -63,7 +60,7 @@ public class CarController {
     @DeleteMapping("/delete/car/{carId}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> deleteCar(@PathVariable Long carId) {
-        carService.deleteRoom(carId);
+        carService.deleteCar(carId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -95,8 +92,8 @@ public class CarController {
         List<Car> availableCars = carService.getAvailableCars(checkInDate, checkOutDate, carType);
         List<CarResponse> carRespons = new ArrayList<>();
         for (Car car : availableCars) {
-                CarResponse carResponse = getCarResponse(car);
-                carRespons.add(carResponse);
+            CarResponse carResponse = getCarResponse(car);
+            carRespons.add(carResponse);
 
         }
         if (carRespons.isEmpty()) {
@@ -115,23 +112,14 @@ public class CarController {
                         booking.getCheckOutDate(), booking.getBookingConfirmationCode()))
                 .toList();
 
-
         return new CarResponse(car.getId(),
                 car.getCarType(), car.getCarPrice(),
                 car.isBooked(), bookingInfo);
     }
 
-    private List<BookedCar> getAllBookingsByCarId(Long roomId) {
-        return bookingServiceImpl.getAllBookingsByCarId(roomId);
+    private List<BookedCar> getAllBookingsByCarId(Long carId) {
+        return bookingServiceImpl.getAllBookingsByCarId(carId);
 
     }
-
-    private byte[] getDefaultImage(CarType carType) throws IOException {
-        String imageName = carType.name() + ".jpeg";
-        Path file = Paths.get("src/main/resources/img/" + imageName);
-        return Files.readAllBytes(file);
-    }
-
-
 
 }

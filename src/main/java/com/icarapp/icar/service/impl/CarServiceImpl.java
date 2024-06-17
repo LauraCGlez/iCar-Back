@@ -26,13 +26,14 @@ import java.util.stream.Stream;
 @Service
 @RequiredArgsConstructor
 public class CarServiceImpl implements CarService {
+
     private final CarRepository carRepository;
 
     @Override
-    public Car addNewCar(CarType carType, BigDecimal roomPrice) throws SQLException, IOException {
+    public Car addNewCar(CarType carType, BigDecimal carPrice) throws SQLException, IOException {
         Car car = new Car();
         car.setCarType(carType);
-        car.setCarPrice(roomPrice);
+        car.setCarPrice(carPrice);
         return carRepository.save(car);
     }
 
@@ -47,25 +48,25 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void deleteRoom(Long roomId) {
-        Optional<Car> theRoom = carRepository.findById(roomId);
-        if(theRoom.isPresent()){
-            carRepository.deleteById(roomId);
+    public void deleteCar(Long carId) {
+        Optional<Car> theCar = carRepository.findById(carId);
+        if(theCar.isPresent()){
+            carRepository.deleteById(carId);
         }
     }
 
     @Override
-    public Car updateCar(Long roomId, CarType carType, BigDecimal roomPrice) {
-        Car car = carRepository.findById(roomId).get();
+    public Car updateCar(Long carId, CarType carType, BigDecimal carPrice) {
+        Car car = carRepository.findById(carId).get();
         if (carType != null) car.setCarType(carType);
-        if (roomPrice != null) car.setCarPrice(roomPrice);
+        if (carPrice != null) car.setCarPrice(carPrice);
 
-       return carRepository.save(car);
+        return carRepository.save(car);
     }
 
     @Override
-    public Optional<Car> getCarById(Long roomId) {
-        return Optional.of(carRepository.findById(roomId).get());
+    public Optional<Car> getCarById(Long carId) {
+        return Optional.of(carRepository.findById(carId).get());
     }
 
     @Override
@@ -73,16 +74,4 @@ public class CarServiceImpl implements CarService {
         return carRepository.findAvailableCarsByDatesAndType(checkInDate, checkOutDate, carType);
     }
 
-    private byte[] getDefaultImage(String roomType) throws IOException {
-        Path dir = Paths.get("src/main/resources/img" + roomType);
-        try (Stream<Path> paths = Files.list(dir)) {
-            Path[] files = paths.toArray(Path[]::new);
-            if (files.length > 0) {
-                Path file = files[0];
-                return Files.readAllBytes(file);
-            } else {
-                throw new IOException("No default image found for room type " + roomType);
-            }
-        }
-    }
 }

@@ -19,7 +19,7 @@ public interface CarService {
 
     List<Car> getAllCars();
 
-    void deleteRoom(Long roomId);
+    void deleteCar(Long roomId);
 
     Car updateCar(Long roomId, CarType carType, BigDecimal roomPrice);
 

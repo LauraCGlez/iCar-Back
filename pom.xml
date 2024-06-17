@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.icar</groupId>
-	<artifactId>icar</artifactId>
+	<artifactId>iCar-Back</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ICarApplication</name>
 	<description>Car Booking Application Project</description>

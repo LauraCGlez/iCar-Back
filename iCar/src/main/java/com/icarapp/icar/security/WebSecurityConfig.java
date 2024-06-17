@@ -23,7 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.icarapp.icar.security.jwt.AuthTokenFilter;
 import com.icarapp.icar.security.jwt.JwtAuthEntryPoint;
-import com.icarapp.icar.security.user.HotelUserDetailsService;
+import com.icarapp.icar.security.user.UserDetailsSecurityService;
 
 
 
@@ -31,7 +31,7 @@ import com.icarapp.icar.security.user.HotelUserDetailsService;
 @RequiredArgsConstructor
 @EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true, prePostEnabled = true)
 public class WebSecurityConfig {
-    private final HotelUserDetailsService userDetailsService;
+    private final UserDetailsSecurityService userDetailsService;
     private final JwtAuthEntryPoint jwtAuthEntryPoint;
 
     @Bean
@@ -70,15 +70,5 @@ public class WebSecurityConfig {
         http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-
-    // @Bean(name = "multipartResolver")
-    // public CommonsMultipartResolver multipartResolver() {
-    //     CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-    //     return multipartResolver;
-    // }
-
-
-
-
 
 }

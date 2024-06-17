@@ -13,17 +13,15 @@ import java.util.Optional;
 
 
 public interface CarService {
-    Car addNewCar(String filePath, CarType carType, BigDecimal roomPrice) throws SQLException, IOException;
+    Car addNewCar(CarType carType, BigDecimal roomPrice) throws SQLException, IOException;
 
     List<CarType> getAllCarTypes();
 
     List<Car> getAllCars();
 
-    byte[] getCarPhotoByCarId(Long carId) throws SQLException;
-
     void deleteRoom(Long roomId);
 
-    Car updateCar(Long roomId, CarType carType, BigDecimal roomPrice, byte[] photoBytes);
+    Car updateCar(Long roomId, CarType carType, BigDecimal roomPrice);
 
     Optional<Car> getCarById(Long roomId);
 

@@ -16,7 +16,6 @@ public class CarResponse {
     private CarType carType;
     private BigDecimal carPrice;
     private boolean isBooked;
-    private String photo;
     private List<BookingResponse>bookings;
 
     public CarResponse(Long id, CarType carType, BigDecimal carPrice) {
@@ -25,14 +24,13 @@ public class CarResponse {
         this.carPrice = carPrice;
     }
 
-    public CarResponse(Long id, CarType carType, BigDecimal carPrice, boolean isBooked,
-                       byte[] photoBytes , List<BookingResponse> bookings) {
+    public CarResponse(Long id, CarType carType, BigDecimal carPrice, boolean isBooked, List<BookingResponse> bookings) {
         this.id = id;
         this.carType = carType;
         this.carPrice = carPrice;
         this.isBooked = isBooked;
-        this.photo = photoBytes != null ? Base64.encodeBase64String(photoBytes) : null;
-       this.bookings = bookings;
+
+        this.bookings = bookings;
     }
 
 }

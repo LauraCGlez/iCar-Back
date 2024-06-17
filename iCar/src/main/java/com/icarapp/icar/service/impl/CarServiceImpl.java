@@ -29,19 +29,10 @@ public class CarServiceImpl implements CarService {
     private final CarRepository carRepository;
 
     @Override
-    public Car addNewCar(String filePath, CarType carType, BigDecimal roomPrice) throws SQLException, IOException {
+    public Car addNewCar(CarType carType, BigDecimal roomPrice) throws SQLException, IOException {
         Car car = new Car();
         car.setCarType(carType);
         car.setCarPrice(roomPrice);
-        byte[] photoBytes;
-        if (filePath != null && !filePath.isEmpty()){
-            Path path = Paths.get(filePath);
-            photoBytes = Files.readAllBytes(path);
-        } else {
-            photoBytes = getDefaultImage(String.valueOf(carType));
-        }
-        Blob photoBlob = new SerialBlob(photoBytes);
-        car.setPhoto(photoBlob);
         return carRepository.save(car);
     }
 
@@ -56,19 +47,6 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public byte[] getCarPhotoByCarId(Long carId) throws SQLException {
-        Optional<Car> theRoom = carRepository.findById(carId);
-        if(theRoom.isEmpty()){
-            throw new ResourceNotFoundException("Sorry, Car not found!");
-        }
-        Blob photoBlob = theRoom.get().getPhoto();
-        if(photoBlob != null){
-            return photoBlob.getBytes(1, (int) photoBlob.length());
-        }
-        return null;
-    }
-
-    @Override
     public void deleteRoom(Long roomId) {
         Optional<Car> theRoom = carRepository.findById(roomId);
         if(theRoom.isPresent()){
@@ -77,17 +55,11 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car updateCar(Long roomId, CarType carType, BigDecimal roomPrice, byte[] photoBytes) {
+    public Car updateCar(Long roomId, CarType carType, BigDecimal roomPrice) {
         Car car = carRepository.findById(roomId).get();
         if (carType != null) car.setCarType(carType);
         if (roomPrice != null) car.setCarPrice(roomPrice);
-        if (photoBytes != null && photoBytes.length > 0) {
-            try {
-                car.setPhoto(new SerialBlob(photoBytes));
-            } catch (SQLException ex) {
-                throw new InternalServerException("Fail updating car");
-            }
-        }
+
        return carRepository.save(car);
     }
 

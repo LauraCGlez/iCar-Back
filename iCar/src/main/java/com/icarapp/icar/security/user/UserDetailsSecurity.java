@@ -19,18 +19,18 @@ import java.util.stream.Collectors;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class HotelUserDetails implements UserDetails {
+public class UserDetailsSecurity implements UserDetails {
     private Long id;
     private  String email;
     private String password;
     private Collection<GrantedAuthority> authorities;
 
-    public static HotelUserDetails buildUserDetails(User user){
+    public static UserDetailsSecurity buildUserDetails(User user){
         List<GrantedAuthority> authorities = user.getRoles()
                 .stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
-        return new HotelUserDetails(
+        return new UserDetailsSecurity(
                 user.getId(),
                 user.getEmail(),
                 user.getPassword(),

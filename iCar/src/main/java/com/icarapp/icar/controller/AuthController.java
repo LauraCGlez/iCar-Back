@@ -20,7 +20,7 @@ import com.icarapp.icar.model.User;
 import com.icarapp.icar.request.LoginRequest;
 import com.icarapp.icar.response.JwtResponse;
 import com.icarapp.icar.security.jwt.JwtUtils;
-import com.icarapp.icar.security.user.HotelUserDetails;
+import com.icarapp.icar.security.user.UserDetailsSecurity;
 import com.icarapp.icar.service.UserService;
 
 import java.util.List;
@@ -50,7 +50,7 @@ public class AuthController {
                 .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtTokenForUser(authentication);
-        HotelUserDetails userDetails = (HotelUserDetails) authentication.getPrincipal();
+        UserDetailsSecurity userDetails = (UserDetailsSecurity) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities()
                 .stream()
                 .map(GrantedAuthority::getAuthority).toList();

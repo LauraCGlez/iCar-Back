@@ -20,11 +20,11 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
+
+    @Enumerated(EnumType.STRING)
     private CarType carType;
     private BigDecimal carPrice;
     private boolean isBooked = false;
-    @Lob
-    private Blob photo;
 
     @OneToMany(mappedBy="car", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<BookedCar> bookings;

@@ -1,6 +1,6 @@
 package com.icarapp.icar.security.jwt;
 
-import com.icarapp.icar.security.user.HotelUserDetails;
+import com.icarapp.icar.security.user.UserDetailsSecurity;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -28,7 +28,7 @@ public class JwtUtils {
     private int jwtExpirationMs;
 
     public String generateJwtTokenForUser(Authentication authentication){
-        HotelUserDetails userPrincipal = (HotelUserDetails) authentication.getPrincipal();
+        UserDetailsSecurity userPrincipal = (UserDetailsSecurity) authentication.getPrincipal();
         List<String> roles = userPrincipal.getAuthorities()
                 .stream()
                 .map(GrantedAuthority::getAuthority).toList();
